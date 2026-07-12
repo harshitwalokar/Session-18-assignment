@@ -1,0 +1,240 @@
+Q1.
+import pandas as pd
+
+# Create Sample Ford Dataset
+data = {
+    "model": ["Fiesta", "Focus", "EcoSport", "Mustang", "Puma"],
+    "year": [2018, 2019, 2017, 2020, 2021],
+    "price": [12000, 15000, 11000, 35000, 22000],
+    "transmission": ["Manual", "Automatic", "Manual", "Automatic", "Manual"],
+    "mileage": [25000, 18000, 32000, 10000, 8000],
+    "fuelType": ["Petrol", "Diesel", "Petrol", "Petrol", "Hybrid"],
+    "tax": [150, 145, 150, 180, 155],
+    "mpg": [55.4, 60.1, 58.5, 35.0, 65.2],
+    "engineSize": [1.0, 1.5, 1.2, 5.0, 1.0]
+}
+
+df = pd.DataFrame(data)
+
+print("First 5 Rows")
+print(df.head())
+
+print("\nLast 5 Rows")
+print(df.tail())
+
+print("\nShape:", df.shape)
+
+print("\nData Types")
+print(df.dtypes)
+
+Q2.
+import pandas as pd
+
+data = {
+    "model":["Fiesta","Focus","Focus","Puma","Puma"],
+    "year":[2018,2019,2019,2021,2021],
+    "price":[12000,15000,15000,22000,22000]
+}
+
+df = pd.DataFrame(data)
+
+print("Missing Values")
+print(df.isnull().sum())
+
+print("\nDuplicate Rows:", df.duplicated().sum())
+
+df = df.drop_duplicates()
+
+print("\nAfter Removing Duplicates")
+print(df)
+
+Q3.
+import pandas as pd
+
+data = {
+    "price":[12000,15000,11000,35000,22000],
+    "mileage":[25000,18000,32000,10000,8000],
+    "year":[2018,2019,2017,2020,2021]
+}
+
+df = pd.DataFrame(data)
+
+print(df.describe())
+
+print("\nMean Price:",df["price"].mean())
+print("Median Price:",df["price"].median())
+
+Q4.
+import pandas as pd
+import matplotlib.pyplot as plt
+
+data = {
+    "price":[12000,15000,11000,35000,22000],
+    "mileage":[25000,18000,32000,10000,8000],
+    "year":[2018,2019,2017,2020,2021],
+    "engineSize":[1.0,1.5,1.2,5.0,1.0],
+    "mpg":[55.4,60.1,58.5,35.0,65.2]
+}
+
+df = pd.DataFrame(data)
+
+df.hist(figsize=(8,6))
+plt.show()
+
+Q5.
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+data = {
+    "fuelType":["Petrol","Diesel","Petrol","Petrol","Hybrid"],
+    "transmission":["Manual","Automatic","Manual","Automatic","Manual"],
+    "model":["Fiesta","Focus","EcoSport","Mustang","Puma"]
+}
+
+df = pd.DataFrame(data)
+
+sns.countplot(x="fuelType", data=df)
+plt.show()
+
+sns.countplot(x="transmission", data=df)
+plt.show()
+
+sns.countplot(x="model", data=df)
+plt.xticks(rotation=45)
+plt.show()
+
+Q6.
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# Sample Dataset
+data = {
+    "price":[12000,15000,11000,35000,22000],
+    "year":[2018,2019,2017,2020,2021],
+    "mileage":[25000,18000,32000,10000,8000],
+    "tax":[150,145,150,180,155],
+    "mpg":[55.4,60.1,58.5,35.0,65.2],
+    "engineSize":[1.0,1.5,1.2,5.0,1.0]
+}
+
+df = pd.DataFrame(data)
+
+corr = df.corr(numeric_only=True)
+
+plt.figure(figsize=(8,6))
+sns.heatmap(corr, annot=True, cmap="coolwarm")
+plt.title("Correlation Heatmap")
+plt.show()
+
+Q7.
+import pandas as pd
+
+data = {
+    "model":["Fiesta","Focus","EcoSport","Mustang","Puma"],
+    "year":[2018,2019,2017,2020,2021],
+    "price":[12000,15000,11000,35000,22000],
+    "transmission":["Manual","Automatic","Manual","Automatic","Manual"],
+    "mileage":[25000,18000,32000,10000,8000],
+    "fuelType":["Petrol","Diesel","Petrol","Petrol","Hybrid"],
+    "tax":[150,145,150,180,155],
+    "mpg":[55.4,60.1,58.5,35.0,65.2],
+    "engineSize":[1.0,1.5,1.2,5.0,1.0]
+}
+
+df = pd.DataFrame(data)
+
+X = df.drop("price", axis=1)
+y = df["price"]
+
+print("Independent Features:")
+print(X.columns)
+
+print("\nDependent Feature:")
+print(y.name)
+
+Q8.
+import pandas as pd
+
+data = {
+    "model":["Fiesta","Focus","EcoSport","Mustang","Puma"],
+    "fuelType":["Petrol","Diesel","Petrol","Petrol","Hybrid"],
+    "transmission":["Manual","Automatic","Manual","Automatic","Manual"]
+}
+
+df = pd.DataFrame(data)
+
+print("Before Encoding")
+print(df)
+
+encoded_df = pd.get_dummies(df)
+
+print("\nAfter Encoding")
+print(encoded_df)
+
+Q9.
+import pandas as pd
+from sklearn.preprocessing import StandardScaler
+
+data = {
+    "year":[2018,2019,2017,2020,2021],
+    "mileage":[25000,18000,32000,10000,8000],
+    "tax":[150,145,150,180,155],
+    "mpg":[55.4,60.1,58.5,35.0,65.2],
+    "engineSize":[1.0,1.5,1.2,5.0,1.0]
+}
+
+df = pd.DataFrame(data)
+
+scaler = StandardScaler()
+
+scaled_data = scaler.fit_transform(df)
+
+scaled_df = pd.DataFrame(scaled_data, columns=df.columns)
+
+print(scaled_df.head())
+
+Q10.
+import pandas as pd
+from sklearn.preprocessing import StandardScaler
+
+# Sample Dataset
+data = {
+    "model":["Fiesta","Focus","EcoSport","Mustang","Puma"],
+    "year":[2018,2019,2017,2020,2021],
+    "price":[12000,15000,11000,35000,22000],
+    "transmission":["Manual","Automatic","Manual","Automatic","Manual"],
+    "mileage":[25000,18000,32000,10000,8000],
+    "fuelType":["Petrol","Diesel","Petrol","Petrol","Hybrid"],
+    "tax":[150,145,150,180,155],
+    "mpg":[55.4,60.1,58.5,35.0,65.2],
+    "engineSize":[1.0,1.5,1.2,5.0,1.0]
+}
+
+df = pd.DataFrame(data)
+
+# Missing Values
+print("Missing Values:")
+print(df.isnull().sum())
+
+# Remove Duplicates
+df = df.drop_duplicates()
+
+# Input and Output
+X = df.drop("price", axis=1)
+y = df["price"]
+
+# One-Hot Encoding
+X = pd.get_dummies(X)
+
+# Feature Scaling
+scaler = StandardScaler()
+
+num_cols = ["year","mileage","tax","mpg","engineSize"]
+
+X[num_cols] = scaler.fit_transform(X[num_cols])
+
+print("\nPreprocessing Completed Successfully")
+print("\nProcessed Data:")
+print(X.head())
